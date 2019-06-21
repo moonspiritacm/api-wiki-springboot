@@ -1,8 +1,10 @@
-# API-WIKI-
+# api-wiki-springboot
 
 API Wiki Project for SpringBoot.
 
 # 数据库设计
+
+![E-R 图](/doc/images/database.png)
 
 ## 用户表 user
 
