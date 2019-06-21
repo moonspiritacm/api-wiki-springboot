@@ -9,29 +9,47 @@ package com.moonspirit.citics.wiki.bean;
  */
 public class User {
 
+	/**
+	 * id  用户编号
+	 */
 	private Integer id;
-	private String username;
+
+	/**
+	 * name  用户名
+	 */
+	private String name;
+
+	/**
+	 * password  密码
+	 */
 	private String password;
-	private String phone;
+
+	/**
+	 * email  电子邮箱
+	 */
+	private String email;
+
+	/**
+	 * type  用户类型
+	 */
+	private Integer type;
+
+	/**
+	 * salt  随机加盐
+	 */
 	private String salt;
 
 	public User() {
-	}
-
-	public User(String username, String password, String phone, String salt) {
 		super();
-		this.username = username;
-		this.password = password;
-		this.phone = phone;
-		this.salt = salt;
 	}
 
-	public User(Integer id, String username, String password, String phone, String salt) {
+	public User(Integer id, String name, String password, String email, Integer type, String salt) {
 		super();
 		this.id = id;
-		this.username = username;
+		this.name = name;
 		this.password = password;
-		this.phone = phone;
+		this.email = email;
+		this.type = type;
 		this.salt = salt;
 	}
 
@@ -43,12 +61,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPassword() {
@@ -59,12 +77,20 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public String getSalt() {
@@ -73,12 +99,6 @@ public class User {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", phone=" + phone + ", salt="
-				+ salt + "]";
 	}
 
 }
