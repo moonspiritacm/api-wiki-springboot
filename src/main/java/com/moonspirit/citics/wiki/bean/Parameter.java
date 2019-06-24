@@ -1,35 +1,75 @@
 package com.moonspirit.citics.wiki.bean;
 
 /**
- * @ClassName      Article
- * @Description    文章实体类
+ * @ClassName      Parameter
+ * @Description    参数实体类
  * @author         moonspirit
- * @date           2019年6月17日 下午3:57:50
+ * @date           2019年6月24日 上午11:18:55
  * @version        1.0.0
  */
 public class Parameter {
 
+	/**
+	 * id  参数编号
+	 */
 	private Integer id;
-	private Integer userId;
-	private String title;
-	private String content;
+
+	/**
+	 * interfacesId  接口编号
+	 */
+	private Integer interfacesId;
+
+	/**
+	 * parentId  父接口编号
+	 */
+	private Integer parentId;
+
+	/**
+	 * name  参数名称
+	 */
+	private String name;
+
+	/**
+	 * description  参数描述
+	 */
+	private String description;
+
+	/**
+	 * type  参数类型：0-请求，1-响应
+	 */
+	private Boolean type;
+
+	/**
+	 * dataType  数据类型
+	 */
+	private Integer dataType;
+
+	/**
+	 * necessary  0-可选，1-必选
+	 */
+	private Boolean necessary;
+
+	/**
+	 * rule  生成规则
+	 */
+	private String rule;
 
 	public Parameter() {
-	}
-
-	public Parameter(Integer userId, String title, String content) {
 		super();
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
 	}
 
-	public Parameter(Integer id, Integer userId, String title, String content) {
+	public Parameter(Integer id, Integer interfacesId, Integer parentId, String name, String description, Boolean type,
+			Integer dataType, Boolean necessary, String rule) {
 		super();
 		this.id = id;
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
+		this.interfacesId = interfacesId;
+		this.parentId = parentId;
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.dataType = dataType;
+		this.necessary = necessary;
+		this.rule = rule;
 	}
 
 	public Integer getId() {
@@ -40,33 +80,75 @@ public class Parameter {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getInterfacesId() {
+		return interfacesId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setInterfacesId(Integer interfacesId) {
+		this.interfacesId = interfacesId;
 	}
 
-	public String getTitle() {
-		return title;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
-	public String getContent() {
-		return content;
+	public String getName() {
+		return name;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Boolean getType() {
+		return type;
+	}
+
+	public void setType(Boolean type) {
+		this.type = type;
+	}
+
+	public Integer getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(Integer dataType) {
+		this.dataType = dataType;
+	}
+
+	public Boolean getNecessary() {
+		return necessary;
+	}
+
+	public void setNecessary(Boolean necessary) {
+		this.necessary = necessary;
+	}
+
+	public String getRule() {
+		return rule;
+	}
+
+	public void setRule(String rule) {
+		this.rule = rule;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", userId=" + userId + ", title=" + title + ", content=" + content + "]";
+		return "Parameter [id=" + id + ", interfacesId=" + interfacesId + ", parentId=" + parentId + ", name=" + name
+				+ ", description=" + description + ", type=" + type + ", dataType=" + dataType + ", necessary="
+				+ necessary + ", rule=" + rule + "]";
 	}
 
 }

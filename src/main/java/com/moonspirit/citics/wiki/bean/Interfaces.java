@@ -1,35 +1,71 @@
 package com.moonspirit.citics.wiki.bean;
 
+import java.util.List;
+
 /**
- * @ClassName      Article
- * @Description    文章实体类
+ * @ClassName      Interfaces
+ * @Description    接口实体类
  * @author         moonspirit
- * @date           2019年6月17日 下午3:57:50
+ * @date           2019年6月24日 上午11:12:33
  * @version        1.0.0
  */
 public class Interfaces {
 
+	/**
+	 * id  接口编号
+	 */
 	private Integer id;
-	private Integer userId;
-	private String title;
-	private String content;
+
+	/**
+	 * moduleId  模块编号
+	 */
+	private Integer moduleId;
+
+	/**
+	 * name  接口名称
+	 */
+	private String name;
+
+	/**
+	 * description  接口描述
+	 */
+	private String description;
+
+	/**
+	 * url  访问地址
+	 */
+	private String url;
+
+	/**
+	 * method  请求类型
+	 */
+	private Integer method;
+
+	/**
+	 * uuid  预留字段
+	 */
+	private String uuid;
+
+	/**
+	 * parameters  接口包含的参数列表
+	 */
+	private List<Parameter> parameters;
 
 	public Interfaces() {
-	}
-
-	public Interfaces(Integer userId, String title, String content) {
 		super();
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
 	}
 
-	public Interfaces(Integer id, Integer userId, String title, String content) {
+	public Interfaces(Integer id, Integer moduleId, String name, String description, String url, Integer method,
+			String uuid, List<Parameter> parameters) {
 		super();
 		this.id = id;
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
+		this.moduleId = moduleId;
+		this.name = name;
+		this.description = description;
+		this.url = url;
+		this.method = method;
+		this.uuid = uuid;
+		this.parameters = parameters;
 	}
 
 	public Integer getId() {
@@ -40,33 +76,66 @@ public class Interfaces {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getModuleId() {
+		return moduleId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setModuleId(Integer moduleId) {
+		this.moduleId = moduleId;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getContent() {
-		return content;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Integer getMethod() {
+		return method;
+	}
+
+	public void setMethod(Integer method) {
+		this.method = method;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public List<Parameter> getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(List<Parameter> parameters) {
+		this.parameters = parameters;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", userId=" + userId + ", title=" + title + ", content=" + content + "]";
+		return "Interfaces [id=" + id + ", moduleId=" + moduleId + ", name=" + name + ", description=" + description
+				+ ", url=" + url + ", method=" + method + ", uuid=" + uuid + ", parameters=" + parameters + "]";
 	}
 
 }

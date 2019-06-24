@@ -32,7 +32,7 @@ public class User {
 	private String email;
 
 	/**
-	 * type  用户类型：0-系统管理员 1-普通用户
+	 * type  用户类型：0-系统管理员，1-普通用户
 	 */
 	private Integer type;
 

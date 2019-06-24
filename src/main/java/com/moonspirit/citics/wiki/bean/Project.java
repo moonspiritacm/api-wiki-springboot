@@ -27,7 +27,7 @@ public class Project {
 	private String description;
 
 	/**
-	 * uuid  预留字段
+	 * uuid  生成项目访问地址
 	 */
 	private String uuid;
 
