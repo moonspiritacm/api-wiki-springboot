@@ -1,5 +1,7 @@
 package com.moonspirit.citics.wiki.bean;
 
+import java.util.List;
+
 /**
  * @ClassName      Project
  * @Description    项目实体类
@@ -10,51 +12,62 @@ package com.moonspirit.citics.wiki.bean;
 public class Project {
 
 	/**
-	 * 项目编号（主键）
+	 * id  项目编号
 	 */
-	private int id;
+	private Integer id;
 
 	/**
-	 * UUID
-	 */
-	private String uuid;
-
-	/**
-	 * 项目名称
+	 * name  项目名称
 	 */
 	private String name;
 
 	/**
-	 * 项目描述
+	 * description  项目描述
 	 */
 	private String description;
+
+	/**
+	 * uuid  预留字段
+	 */
+	private String uuid;
+
+	/**
+	 * users  参与项目的用户列表
+	 */
+	private List<User> users;
+
+	/**
+	 * articles  项目关联的文章列表
+	 */
+	private List<Article> articles;
+
+	/**
+	 * modules  项目包含的模块列表
+	 */
+	private List<Module> modules;
 
 	public Project() {
 		super();
 	}
 
-	public Project(int id, String uuid, String name, String description) {
+	public Project(Integer id, String name, String description, String uuid, List<User> users, List<Article> articles,
+			List<Module> modules) {
 		super();
 		this.id = id;
-		this.uuid = uuid;
 		this.name = name;
 		this.description = description;
+		this.uuid = uuid;
+		this.users = users;
+		this.articles = articles;
+		this.modules = modules;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
 	}
 
 	public String getName() {
@@ -73,9 +86,42 @@ public class Project {
 		this.description = description;
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
+
 	@Override
 	public String toString() {
-		return "Project [id=" + id + ", uuid=" + uuid + ", name=" + name + ", description=" + description + "]";
+		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", uuid=" + uuid + ", users="
+				+ users + ", articles=" + articles + ", modules=" + modules + "]";
 	}
 
 }

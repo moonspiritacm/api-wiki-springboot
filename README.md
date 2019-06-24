@@ -25,7 +25,7 @@ API Wiki Project for SpringBoot.
 |     id      |   int(11)    |  √   |      |  √   |        | 主键索引 | 项目编号 |
 |    name     | varchar(255) |      |      |  √   |        | 唯一索引 | 项目名称 |
 | description | varchar(255) |      |      |      | 空描述 |          | 项目描述 |
-|    uuid     |   char(36)   |      |      |  √   |        |          | 预留字段 |
+|    uuid     |   char(36)   |      |      |  √   |        |          | 生成项目访问地址 |
 
 ## 用户项目关系表 user_project
 
@@ -54,7 +54,7 @@ API Wiki Project for SpringBoot.
 | project_id  |   int(11)    |      |  √   |  √   |        |          |     项目编号     |
 |    name     | varchar(255) |      |      |  √   |        |          |     模块名称     |
 | description | varchar(255) |      |      |      | 空描述 |          |     模块描述     |
-|    uuid     |   char(36)   |      |      |  √   |        |          | 生成模块访问地址 |
+|    uuid     |   char(36)   |      |      |  √   |        |          | 预留字段 |
 
 ## 接口表 interfaces
 
