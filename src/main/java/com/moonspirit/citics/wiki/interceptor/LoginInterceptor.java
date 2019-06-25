@@ -6,12 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moonspirit.citics.wiki.annotation.LoginAuth;
+import com.moonspirit.citics.wiki.bean.SessionKey;
+import com.moonspirit.citics.wiki.result.CodeMsg;
+import com.moonspirit.citics.wiki.result.Result;
+import com.moonspirit.citics.wiki.utils.ReturnUtil;
 
 /**
  * @ClassName      LoginInterceptor
@@ -22,6 +27,9 @@ import com.moonspirit.citics.wiki.annotation.LoginAuth;
  */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+
+	@Autowired
+	SessionKey sessionKey;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -37,11 +45,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		// 基于 Session 实现
 		HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
-		if (session != null && session.getAttribute("users") != null) {
-			return true;
-		} else {
+		if (session == null || session.getAttribute("users") == null) {
+			Result<Object> result = Result.failure(CodeMsg.USER_NOT_LOGIN);
+			ReturnUtil.returnJson(response, result);
 			return false;
 		}
+		return true;
 	}
 
 	@Override

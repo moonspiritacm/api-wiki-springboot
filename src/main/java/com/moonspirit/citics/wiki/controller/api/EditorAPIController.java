@@ -62,7 +62,7 @@ public class EditorAPIController {
 		String fileName = uuid + "." + fileType;
 		String filePath = "upload/";
 		try {
-			FileUtil.uploadFile(multipartFile, filePath, fileName);
+			FileUtil.upload(multipartFile, filePath, fileName);
 			res.put("success", 1);
 			res.put("message", "上传成功");
 			res.put("url", imageUrl.substring(0, imageUrl.length() - 2) + fileName);

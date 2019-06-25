@@ -1,24 +1,28 @@
 package com.moonspirit.citics.wiki.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.moonspirit.citics.wiki.bean.Images;
 import com.moonspirit.citics.wiki.interceptor.LoginInterceptor;
 import com.moonspirit.citics.wiki.interceptor.ProjectInterceptor;
 import com.moonspirit.citics.wiki.interceptor.UserInterceptor;
 
+/**
+ * @ClassName      WebMvcConfig
+ * @Description    应用配置类
+ * @author         moonspirit
+ * @date           2019年6月25日 上午9:53:28
+ * @version        1.0.0
+ */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	@Value("${images.url}")
-	private String imageUrl;
-
-	@Value("${images.path}")
-	private String imagePath;
+	@Autowired
+	Images images;
 
 	@Autowired
 	LoginInterceptor loginInterceptor;
@@ -31,7 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(imageUrl).addResourceLocations(imagePath); // 图片访问及存储路径
+		registry.addResourceHandler(images.getUrl()).addResourceLocations(images.getPath()); // 图片访问及存储路径
 	}
 
 	@Override

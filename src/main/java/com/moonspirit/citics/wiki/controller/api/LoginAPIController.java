@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.moonspirit.citics.wiki.annotation.LoginAuth;
+import com.moonspirit.citics.wiki.bean.SessionKey;
 import com.moonspirit.citics.wiki.bean.User;
 import com.moonspirit.citics.wiki.result.CodeMsg;
 import com.moonspirit.citics.wiki.result.Result;
@@ -31,6 +32,9 @@ import com.moonspirit.citics.wiki.service.UserService;
 @CrossOrigin(origins = "*", allowCredentials = "true")
 public class LoginAPIController {
 	private static Logger logger = LoggerFactory.getLogger(LoginAPIController.class);
+
+	@Autowired
+	SessionKey sessionKey;
 
 	@Autowired
 	public UserService userService;
@@ -53,7 +57,7 @@ public class LoginAPIController {
 			if (user.getPassword().equals(password)) {
 				HttpSession session = request.getSession(true); // 获取当前会话（没有则自动创建新会话）
 				// HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
-				session.setAttribute("users", user.getId()); // 添加属性
+				session.setAttribute(sessionKey.getUser(), user.getId()); // 添加属性
 				logger.info(session.getId() + session.getAttributeNames());
 				return Result.success();
 			} else {

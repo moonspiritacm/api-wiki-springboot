@@ -1,5 +1,6 @@
 package com.moonspirit.citics.wiki.interceptor;
 
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,11 +38,24 @@ public class UserInterceptor implements HandlerInterceptor {
 
 		// 基于 Session 实现
 		HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
-		if (session != null && session.getAttribute("users") != null) {
-			return true;
-		} else {
+		if (session == null || session.getAttribute("users") == null) {
+			response.reset();
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json;charset=UTF-8");
+
+			PrintWriter pw = response.getWriter();
+
+			//	        if (user == null) {
+			//	            pw.write(JsonUtil.objToJson(ServerResponse.createByErrorCodeAndMessage(ResponseCode.NEED_LOGIN.getCode(), "拦截器拦截，请登录")));
+			//	        } else {
+			//	            pw.write(JsonUtil.objToJson(ServerResponse.createByErrorCodeAndMessage(ResponseCode.ERROR.getCode(), "拦截器拦截，无权限操作")));
+			//	        }
+
+			pw.flush();
+			pw.close();
 			return false;
 		}
+		return true;
 	}
 
 	@Override
