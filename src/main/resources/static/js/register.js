@@ -18,7 +18,7 @@ $("#registerBtn").click(function login() {
 			}
 		},
 		error : function(data) {
-			layer.msg(data.msg);
+			layer.msg("未知错误");
 		}
 	})
 })

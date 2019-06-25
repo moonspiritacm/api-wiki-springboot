@@ -1,11 +1,11 @@
 $("#loginBtn").click(function login() {
-	console.log("login()");
+	console.log("login() ******");
 	$.ajax({
 		url : '/api/login',
 		type : 'post',
 		dataType : 'json',
 		data : {
-			"phone" : $("#phone").val(),
+			"email" : $("#email").val(),
 			"password" : $("#password").val()
 		},
 		success : function(data) {

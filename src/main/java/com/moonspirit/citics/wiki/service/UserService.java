@@ -17,6 +17,6 @@ public interface UserService {
 	@Transactional
 	Result<Object> register(User user);
 
-	User findUserByPhone(String phone);
+	User findUserByEmail(String email);
 
 }

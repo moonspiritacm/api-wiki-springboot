@@ -26,14 +26,14 @@ public class UserServiceImpl implements UserService {
 	UserMapper userMapper;
 
 	@Override
-	public User findUserByPhone(String phone) {
-		return userMapper.findUserByPhone(phone);
+	public User findUserByEmail(String email) {
+		return userMapper.findUserByEmail(email);
 	}
 
 	@Override
 	public Result<Object> register(User user) {
 		// 用户存在
-		if (isUserExist(user.getPhone())) {
+		if (isUserExist(user.getName())) {
 			return Result.failure(CodeMsg.USER_IS_EXIST);
 		}
 		user.setSalt("0");

@@ -6,6 +6,13 @@ import org.apache.ibatis.annotations.Select;
 
 import com.moonspirit.citics.wiki.bean.User;
 
+/**
+ * @ClassName      UserMapper
+ * @Description    用户表关系映射
+ * @author         moonspirit
+ * @date           2019年6月24日 下午1:48:34
+ * @version        1.0.0
+ */
 @Mapper
 public interface UserMapper {
 
@@ -21,7 +28,7 @@ public interface UserMapper {
 	@Select("select username from tb_user where phone=#{phone}")
 	String findUsernameByPhone(String phone);
 
-	@Select("select * from tb_user where phone=#{phone}")
-	User findUserByPhone(String phone);
+	@Select("select * from user where email=#{email}")
+	User findUserByEmail(String email);
 
 }

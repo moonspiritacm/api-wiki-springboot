@@ -1,6 +1,7 @@
 package com.moonspirit.citics.wiki.controller.api;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.moonspirit.citics.wiki.annotation.LoginAuth;
 import com.moonspirit.citics.wiki.bean.User;
 import com.moonspirit.citics.wiki.result.CodeMsg;
 import com.moonspirit.citics.wiki.result.Result;
@@ -33,15 +35,26 @@ public class LoginAPIController {
 	@Autowired
 	public UserService userService;
 
+	/**
+	  * @MethodName       login
+	  * @Description      普通用户登录功能（基于 Session 实现）
+	  * @param            email
+	  * @param            password
+	  * @param            request
+	  * @return
+	  */
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public Result<Object> login(@RequestParam("phone") String phone, @RequestParam("password") String password,
+	public Result<Object> login(@RequestParam("email") String email, @RequestParam("password") String password,
 			HttpServletRequest request) {
-		logger.info("input args: [phone=" + phone + ", password=" + password + "]");
-		User dbUser = userService.findUserByPhone(phone);
-		if (dbUser != null) {
-			if (dbUser.getPassword().equals(password)) {
-				request.getSession().setAttribute("users", dbUser.getId());
+		logger.info("input args: [email=" + email + ", password=" + password + "]");
+		User user = userService.findUserByEmail(email);
+		if (user != null) {
+			if (user.getPassword().equals(password)) {
+				HttpSession session = request.getSession(true); // 获取当前会话（没有则自动创建新会话）
+				// HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
+				session.setAttribute("users", user.getId()); // 添加属性
+				logger.info(session.getId() + session.getAttributeNames());
 				return Result.success();
 			} else {
 				return Result.failure(CodeMsg.PASSWORD_ERROR);
@@ -49,5 +62,13 @@ public class LoginAPIController {
 		} else {
 			return Result.failure(CodeMsg.USER_NOT_EXIST);
 		}
+	}
+
+	@LoginAuth
+	@ResponseBody
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public Result<Object> logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return Result.success();
 	}
 }

@@ -17,25 +17,31 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row" style="margin-top: 20px;">
-			<div class="col-md-1"></div>
-			<div class="col-md-8">
-				<input id="title" name="title" class="form-control" type="text"
-					placeholder="输入文章标题" />
+		<div class="col-md-8">
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-1"></div>
+				<div class="col-md-8">
+					<input id="title" name="title" class="form-control" type="text"
+						placeholder="输入文章标题" />
+				</div>
+				<div class="col-md-2">
+					<button id="publishBtn" class="btn btn-primary btn-block"
+						type="button">发布文章</button>
+				</div>
+				<div class="col-md-1"></div>
 			</div>
-			<div class="col-md-2">
-				<button id="publishBtn" class="btn btn-primary btn-block"
-					type="button">发布文章</button>
+			<div class="row" style="margin-top: 20px;">
+				<div id="my-editormd">
+					<textarea id="my-editormd-markdown-doc"
+						name="my-editormd-markdown-doc" style="display: none;"></textarea>
+					<textarea id="my-editormd-html-code" name="my-editormd-html-code"
+						style="display: none;"></textarea>
+				</div>
 			</div>
-			<div class="col-md-1"></div>
 		</div>
-		<div class="row" style="margin-top: 20px;">
-			<div id="my-editormd">
-				<textarea id="my-editormd-markdown-doc"
-					name="my-editormd-markdown-doc" style="display: none;"></textarea>
-				<textarea id="my-editormd-html-code" name="my-editormd-html-code"
-					style="display: none;"></textarea>
-			</div>
+		<div class="col-md-2">
+			<button id="logoutBtn" class="btn btn-primary btn-block"
+				type="button">退出登录</button>
 		</div>
 	</div>
 </body>
