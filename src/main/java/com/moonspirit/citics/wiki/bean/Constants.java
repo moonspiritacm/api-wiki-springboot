@@ -20,9 +20,14 @@ public class Constants {
 	private String sessionUser;
 
 	/**
-	 * tokenAuth  令牌内容
+	 * tokenAuth  请求头中令牌字段名
 	 */
-	private String tokenAuth;
+	private String authorization;
+
+	/**
+	 * tokenUserId  请求中注入用户编号
+	 */
+	private String tokenUserId;
 
 	/**
 	 * tokenExpires  令牌过期时间
@@ -47,12 +52,20 @@ public class Constants {
 		this.sessionUser = sessionUser;
 	}
 
-	public String getTokenAuth() {
-		return tokenAuth;
+	public String getAuthorization() {
+		return authorization;
 	}
 
-	public void setTokenAuth(String tokenAuth) {
-		this.tokenAuth = tokenAuth;
+	public void setAuthorization(String authorization) {
+		this.authorization = authorization;
+	}
+
+	public String getTokenUserId() {
+		return tokenUserId;
+	}
+
+	public void setTokenUserId(String tokenUserId) {
+		this.tokenUserId = tokenUserId;
 	}
 
 	public Integer getTokenExpires() {
@@ -81,8 +94,9 @@ public class Constants {
 
 	@Override
 	public String toString() {
-		return "Constants [sessionUser=" + sessionUser + ", tokenAuth=" + tokenAuth + ", tokenExpires=" + tokenExpires
-				+ ", imagesUrl=" + imagesUrl + ", imagesPath=" + imagesPath + "]";
+		return "Constants [sessionUser=" + sessionUser + ", authorization=" + authorization + ", tokenUserId="
+				+ tokenUserId + ", tokenExpires=" + tokenExpires + ", imagesUrl=" + imagesUrl + ", imagesPath="
+				+ imagesPath + "]";
 	}
 
 }

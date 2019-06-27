@@ -25,6 +25,7 @@ import com.moonspirit.citics.wiki.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
 	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
@@ -72,15 +73,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Token getToken(String auth) {
-		if (!StringUtils.isBlank(auth)) {
+	public Token getToken(String authorization) {
+		logger.info(authorization);
+		if (StringUtils.isBlank(authorization)) {
 			return null;
 		}
-		if (auth.length() <= 36) {
+		if (authorization.length() <= 36) {
 			return null;
 		}
-		String userId = auth.substring(0, auth.length() - 36);
-		String token = auth.substring(auth.length() - 36);
+		String userId = authorization.substring(0, authorization.length() - 36);
+		String token = authorization.substring(authorization.length() - 36);
 		return new Token(userId, token);
 	}
 

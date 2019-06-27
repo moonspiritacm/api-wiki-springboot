@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -29,6 +31,8 @@ import com.moonspirit.citics.wiki.utils.ReturnUtil;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
+	private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+
 	@Autowired
 	Constants constants;
 
@@ -46,6 +50,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (method.getAnnotation(LoginAuth.class) == null) {
 			return true;
 		}
+		logger.info(this.getClass().getSimpleName() + " running......");
 
 		//		// 基于 Session 实现
 		//		HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
@@ -56,14 +61,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 		//		}
 
 		// 基于 Token 实现
-		String auth = request.getHeader(constants.getTokenAuth());
-		Token token = userService.getToken(auth);
+		String authorization = request.getHeader(constants.getAuthorization());
+		Token token = userService.getToken(authorization);
 		if (!userService.checkToken(token)) {
 			Result<Object> result = Result.failure(CodeMsg.USER_NOT_LOGIN);
 			ReturnUtil.returnJson(response, result);
 			return false;
 		}
-		//		request.setAttribute(constants.userId, token.getUserId());
+		logger.info(this.getClass().getSimpleName() + " success.");
+		request.setAttribute(constants.getTokenUserId(), token.getUserId());
 		return true;
 	}
 
@@ -76,19 +82,5 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e)
 			throws Exception {
 	}
+
 }
-
-//
-//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
-//		String authorization = request.getHeader(Constants.AUTHORIZATION);
-//		TokenEntity tokenEntity = tokenService.getToken(authorization);
-//
-//		if (tokenService.checkToken(tokenEntity)) {
-//			//如果token验证成功，将token对应的用户id存在request中，便于之后注入
-//			request.setAttribute(Constants.CURRENT_USER_ID, tokenEntity.getUserId());
-//			return true;
-//		} else {
-//			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//			return false;
-//		}

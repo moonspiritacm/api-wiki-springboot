@@ -1,6 +1,10 @@
+var token = localStorage.getItem("token");
+console.log(token);
+
 // Markdown 在线编辑器
+var myEditor;
 $(function() {
-	var myEditor = editormd("my-editormd", {
+	myEditor = editormd("my-editormd", {
 		width : "80%",
 		height : 740,
 		path : 'lib/',
@@ -47,17 +51,24 @@ $(function() {
 $('#publishBtn').click(function() {
 	console.log("publish()");
 	$.ajax({
-		type : "POST",
 		url : "/api/article",
-		traditional : true, // 传数组
-		data : {
-			"title" : $('#title').val(),
-			"content" : myEditor.getHTML()
-		},
+		type : "POST",
+		traditional : true,
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
 		dataType : "json",
+		data : {
+			"title" : $('#title').val(),
+			"content" : myEditor.getMarkdown()
+		},
+		beforeSend : function(request) {
+			request.setRequestHeader("Authorization", token);
+		},
 		success : function(data) {
-			console.log("success");
+			if (data.code == 200) {
+				layer.msg("发布成功");
+			} else {
+				layer.msg(data.msg);
+			}
 		},
 		error : function() {
 			console.log("fail");

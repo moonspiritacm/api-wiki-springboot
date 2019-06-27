@@ -10,6 +10,7 @@ $("#loginBtn").click(function login() {
 		},
 		success : function(data) {
 			if (data.code == 200) {
+				localStorage.setItem("token", data.data);
 				layer.msg("登录成功");
 				window.location.href = "/editor";
 			} else {

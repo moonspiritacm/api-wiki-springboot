@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.moonspirit.citics.wiki.annotation.LoginAuth;
 import com.moonspirit.citics.wiki.bean.Article;
+import com.moonspirit.citics.wiki.bean.Constants;
 import com.moonspirit.citics.wiki.result.Result;
 import com.moonspirit.citics.wiki.service.ArticleService;
 import com.moonspirit.citics.wiki.service.UserService;
@@ -28,20 +29,23 @@ import com.moonspirit.citics.wiki.utils.FileUtil;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*", allowCredentials = "true")
 public class EditorAPIController {
+
 	private Logger logger = LoggerFactory.getLogger(EditorAPIController.class);
 
-	@Value("${images.url}")
-	private String imageUrl;
+	@Autowired
+	Constants constants;
 
 	@Autowired
 	UserService userService;
+
 	@Autowired
 	ArticleService articleService;
 
+	@LoginAuth
 	@RequestMapping(value = "/article", method = RequestMethod.POST)
 	public Result<Object> publishArticle(@RequestParam("title") String title, @RequestParam("content") String content,
 			HttpServletRequest request) {
-		Integer userId = (Integer) request.getSession().getAttribute("users");
+		Integer userId = (Integer) request.getSession().getAttribute(constants.getSessionUser());
 		Article article = new Article();
 		article.setUserId(userId);
 		article.setTitle(title);
@@ -65,7 +69,7 @@ public class EditorAPIController {
 			FileUtil.upload(multipartFile, filePath, fileName);
 			res.put("success", 1);
 			res.put("message", "上传成功");
-			res.put("url", imageUrl.substring(0, imageUrl.length() - 2) + fileName);
+			res.put("url", constants.getImagesUrl().substring(0, constants.getImagesUrl().length() - 2) + fileName);
 		} catch (IOException e) {
 			res.put("success", 0);
 			res.put("message", "上传失败");
