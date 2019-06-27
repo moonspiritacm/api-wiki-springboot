@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,9 +12,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moonspirit.citics.wiki.annotation.LoginAuth;
-import com.moonspirit.citics.wiki.bean.SessionKey;
+import com.moonspirit.citics.wiki.bean.Constants;
+import com.moonspirit.citics.wiki.bean.Token;
 import com.moonspirit.citics.wiki.result.CodeMsg;
 import com.moonspirit.citics.wiki.result.Result;
+import com.moonspirit.citics.wiki.service.UserService;
 import com.moonspirit.citics.wiki.utils.ReturnUtil;
 
 /**
@@ -29,7 +30,10 @@ import com.moonspirit.citics.wiki.utils.ReturnUtil;
 public class LoginInterceptor implements HandlerInterceptor {
 
 	@Autowired
-	SessionKey sessionKey;
+	Constants constants;
+
+	@Autowired
+	UserService userService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -43,13 +47,23 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
-		// 基于 Session 实现
-		HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
-		if (session == null || session.getAttribute("users") == null) {
+		//		// 基于 Session 实现
+		//		HttpSession session = request.getSession(false); // 获取当前会话（没有也不自动创建新会话）
+		//		if (session == null || session.getAttribute(constants.getSessionUser()) == null) {
+		//			Result<Object> result = Result.failure(CodeMsg.USER_NOT_LOGIN);
+		//			ReturnUtil.returnJson(response, result);
+		//			return false;
+		//		}
+
+		// 基于 Token 实现
+		String auth = request.getHeader(constants.getTokenAuth());
+		Token token = userService.getToken(auth);
+		if (!userService.checkToken(token)) {
 			Result<Object> result = Result.failure(CodeMsg.USER_NOT_LOGIN);
 			ReturnUtil.returnJson(response, result);
 			return false;
 		}
+		//		request.setAttribute(constants.userId, token.getUserId());
 		return true;
 	}
 

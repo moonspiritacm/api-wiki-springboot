@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.moonspirit.citics.wiki.bean.Images;
+import com.moonspirit.citics.wiki.bean.Constants;
 import com.moonspirit.citics.wiki.interceptor.LoginInterceptor;
 import com.moonspirit.citics.wiki.interceptor.ProjectInterceptor;
 import com.moonspirit.citics.wiki.interceptor.UserInterceptor;
@@ -22,7 +22,7 @@ import com.moonspirit.citics.wiki.interceptor.UserInterceptor;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Autowired
-	Images images;
+	Constants constants;
 
 	@Autowired
 	LoginInterceptor loginInterceptor;
@@ -35,7 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(images.getUrl()).addResourceLocations(images.getPath()); // 图片访问及存储路径
+		registry.addResourceHandler(constants.getImagesUrl()).addResourceLocations(constants.getImagesPath()); // 图片访问及存储路径
 	}
 
 	@Override

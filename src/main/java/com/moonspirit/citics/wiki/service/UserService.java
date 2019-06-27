@@ -2,6 +2,7 @@ package com.moonspirit.citics.wiki.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.moonspirit.citics.wiki.bean.Token;
 import com.moonspirit.citics.wiki.bean.User;
 import com.moonspirit.citics.wiki.result.Result;
 
@@ -18,5 +19,11 @@ public interface UserService {
 	Result<Object> register(User user);
 
 	User findUserByEmail(String email);
+
+	Token createToken(String userId);
+
+	boolean checkToken(Token token);
+
+	Token getToken(String auth);
 
 }

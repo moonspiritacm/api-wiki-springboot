@@ -33,7 +33,7 @@ public class RedisConfig {
 		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
 		template.setConnectionFactory(factory);
 
-		// Jackson2JsonRedisSerializer 序列化 Key
+		// StringRedisSerializer 序列化 Key
 		StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
 		// Jackson2JsonRedisSerializer 序列化 Value
